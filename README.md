@@ -22,7 +22,7 @@ pod 'JZFMDB'
 
 ## Author
 
-jason8zhang, zhangzexin@yuewen.com
+jason8zhang, zhangzx_326@yeah.net
 
 ## License
 

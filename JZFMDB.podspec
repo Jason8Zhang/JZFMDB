@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
   s.homepage         = 'https://github.com/Jason8Zhang/JZFMDB'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'jason8zhang' => 'zhangzexin@yuewen.com' }
+  s.author           = { 'jason8zhang' => 'zhangzx_326@yeah.net' }
   s.source           = { :git => 'https://github.com/jason8zhang/JZFMDB.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
  #最低iOS系统要求
