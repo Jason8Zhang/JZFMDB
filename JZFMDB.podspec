@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'JZFMDB'
-  s.version          = '0.1.0'
+  s.version          = '0.1.2'
   # 这里加上你的工程简介
   s.summary          = '这是fmdb封装的demo JZFMDB.'
 
