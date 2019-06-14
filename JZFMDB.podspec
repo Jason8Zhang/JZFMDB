@@ -41,7 +41,7 @@ Pod::Spec.new do |s|
   # 这里声明你需要公开的文件
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # 这个地方注意下，你在工程中要用到的framework,都需要在这里声明
-  # s.frameworks = 'UIKit', 'MapKit'
+  s.frameworks = 'CoreData'
   # 在项目中我们还会用到一些library，也需要在这里声明，比如sqllite等tbd结尾的
   # s.libraries = 'resolv'
   # 这里可以声明你的静态库依赖的其他静态库

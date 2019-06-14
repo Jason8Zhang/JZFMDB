@@ -7,6 +7,6 @@
 
 #ifndef JZFMDBHelper_h
 #define JZFMDBHelper_h
-#import "NSObject+JZFMDBHelper.h"
+//#import "NSObject+JZFMDBHelper.h"
 #import "JZFMDBTools.h"
 #endif /* JZFMDBHelper_h */

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5322AE8522B1EE4B00B22D93 /* JZBookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5322AE8422B1EE4B00B22D93 /* JZBookModel.m */; };
+		5322AE9522B1F0D800B22D93 /* bookmodel.json in Resources */ = {isa = PBXBuildFile; fileRef = 5322AE9422B1F0D800B22D93 /* bookmodel.json */; };
+		5322AEA322B1F59600B22D93 /* BookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5322AEA222B1F59600B22D93 /* BookModel.m */; };
+		5322AEA722B22F9F00B22D93 /* newbook.json in Resources */ = {isa = PBXBuildFile; fileRef = 5322AEA622B22F9E00B22D93 /* newbook.json */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -19,10 +23,10 @@
 		6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
+		6D016A6E0B07351C88D3F8E5 /* libPods-JZFMDB_Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C898AA2FF3136DD559C65E03 /* libPods-JZFMDB_Tests.a */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
-		9B4C632ADA22BA1DECF25FF1 /* Pods_JZFMDB_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3B3973DA77E22C89D02E99C /* Pods_JZFMDB_Example.framework */; };
-		D2D9094ABA0A56A796979C1C /* Pods_JZFMDB_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88DC544914BE81F97078CF09 /* Pods_JZFMDB_Tests.framework */; };
+		E4E55F9C51475C52C6213686 /* libPods-JZFMDB_Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E25E1D121259C56250C6ADE6 /* libPods-JZFMDB_Example.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +41,12 @@
 
 /* Begin PBXFileReference section */
 		22B9A64C0239F9E82302C5F9 /* Pods-JZFMDB_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JZFMDB_Tests.release.xcconfig"; path = "Target Support Files/Pods-JZFMDB_Tests/Pods-JZFMDB_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		5322AE8322B1EE4B00B22D93 /* JZBookModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JZBookModel.h; sourceTree = "<group>"; };
+		5322AE8422B1EE4B00B22D93 /* JZBookModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JZBookModel.m; sourceTree = "<group>"; };
+		5322AE9422B1F0D800B22D93 /* bookmodel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bookmodel.json; sourceTree = "<group>"; };
+		5322AEA122B1F59600B22D93 /* BookModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookModel.h; sourceTree = "<group>"; };
+		5322AEA222B1F59600B22D93 /* BookModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookModel.m; sourceTree = "<group>"; };
+		5322AEA622B22F9E00B22D93 /* newbook.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = newbook.json; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* JZFMDB_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JZFMDB_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -59,12 +69,12 @@
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7F5AEF6441643F95FD28D5DC /* Pods-JZFMDB_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JZFMDB_Example.release.xcconfig"; path = "Target Support Files/Pods-JZFMDB_Example/Pods-JZFMDB_Example.release.xcconfig"; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		88DC544914BE81F97078CF09 /* Pods_JZFMDB_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JZFMDB_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9268280021ED3EC05D466A29 /* JZFMDB.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = JZFMDB.podspec; path = ../JZFMDB.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9686539366C848581962D3A2 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		A3B3973DA77E22C89D02E99C /* Pods_JZFMDB_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JZFMDB_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C77800D86FA140E59F71F284 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		C898AA2FF3136DD559C65E03 /* libPods-JZFMDB_Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JZFMDB_Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D06717B66A72A2E8FAE0816A /* Pods-JZFMDB_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JZFMDB_Example.debug.xcconfig"; path = "Target Support Files/Pods-JZFMDB_Example/Pods-JZFMDB_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		E25E1D121259C56250C6ADE6 /* libPods-JZFMDB_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JZFMDB_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,7 +85,7 @@
 				6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */,
 				6003F592195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F58E195388D20070C39A /* Foundation.framework in Frameworks */,
-				9B4C632ADA22BA1DECF25FF1 /* Pods_JZFMDB_Example.framework in Frameworks */,
+				E4E55F9C51475C52C6213686 /* libPods-JZFMDB_Example.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,7 +96,7 @@
 				6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */,
 				6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */,
-				D2D9094ABA0A56A796979C1C /* Pods_JZFMDB_Tests.framework in Frameworks */,
+				6D016A6E0B07351C88D3F8E5 /* libPods-JZFMDB_Tests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,8 +142,8 @@
 				6003F58F195388D20070C39A /* CoreGraphics.framework */,
 				6003F591195388D20070C39A /* UIKit.framework */,
 				6003F5AF195388D20070C39A /* XCTest.framework */,
-				A3B3973DA77E22C89D02E99C /* Pods_JZFMDB_Example.framework */,
-				88DC544914BE81F97078CF09 /* Pods_JZFMDB_Tests.framework */,
+				E25E1D121259C56250C6ADE6 /* libPods-JZFMDB_Example.a */,
+				C898AA2FF3136DD559C65E03 /* libPods-JZFMDB_Tests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -141,6 +151,8 @@
 		6003F593195388D20070C39A /* Example for JZFMDB */ = {
 			isa = PBXGroup;
 			children = (
+				5322AEA122B1F59600B22D93 /* BookModel.h */,
+				5322AEA222B1F59600B22D93 /* BookModel.m */,
 				6003F59C195388D20070C39A /* JZAppDelegate.h */,
 				6003F59D195388D20070C39A /* JZAppDelegate.m */,
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
@@ -149,6 +161,8 @@
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
+				5322AE8322B1EE4B00B22D93 /* JZBookModel.h */,
+				5322AE8422B1EE4B00B22D93 /* JZBookModel.m */,
 			);
 			name = "Example for JZFMDB";
 			path = JZFMDB;
@@ -157,6 +171,8 @@
 		6003F594195388D20070C39A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5322AEA622B22F9E00B22D93 /* newbook.json */,
+				5322AE9422B1F0D800B22D93 /* bookmodel.json */,
 				6003F595195388D20070C39A /* JZFMDB-Info.plist */,
 				6003F596195388D20070C39A /* InfoPlist.strings */,
 				6003F599195388D20070C39A /* main.m */,
@@ -204,7 +220,6 @@
 				6003F586195388D20070C39A /* Sources */,
 				6003F587195388D20070C39A /* Frameworks */,
 				6003F588195388D20070C39A /* Resources */,
-				9347D6809FCF63E8C52B2F38 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -280,7 +295,9 @@
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
+				5322AE9522B1F0D800B22D93 /* bookmodel.json in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
+				5322AEA722B22F9F00B22D93 /* newbook.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,26 +348,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9347D6809FCF63E8C52B2F38 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-JZFMDB_Example/Pods-JZFMDB_Example-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/BGFMDB/BGFMDB.framework",
-				"${BUILT_PRODUCTS_DIR}/JZFMDB/JZFMDB.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BGFMDB.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JZFMDB.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JZFMDB_Example/Pods-JZFMDB_Example-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -358,9 +355,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5322AE8522B1EE4B00B22D93 /* JZBookModel.m in Sources */,
 				6003F59E195388D20070C39A /* JZAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* JZViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
+				5322AEA322B1F59600B22D93 /* BookModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
