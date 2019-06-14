@@ -7,7 +7,7 @@
 //
 
 #import "JZViewController.h"
-#import "JZFMDBHelper.h"
+#import "JZFMDB.h"
 #import "JZFMDB-Prefix.pch"
 #import "BookModel.h"
 #import <YYKit/YYKit.h>
@@ -30,28 +30,28 @@
     BookModel *bookModel = [BookModel modelWithJSON:json];
     
 
-    [JZFMDBTools setDebugEnable:YES];
-//    [JZFMDBTools syncSaveModel:json inTable:nil];
-//    [JZFMDBTools syncSaveDic:json inTable:nil];
-    [JZFMDBTools syncSaveArray:bookModel.result.authornovels];
-//    [JZFMDBTools initTable:NSStringFromClass([BookModel class]) withModel:bookModel.result.authornovels];
+    [JZFMDBHelper setDebugEnable:YES];
+//    [JZFMDBHelper syncSaveModel:json inTable:nil];
+//    [JZFMDBHelper syncSaveDic:json inTable:nil];
+    [JZFMDBHelper syncSaveArray:bookModel.result.authornovels];
+//    [JZFMDBHelper initTable:NSStringFromClass([BookModel class]) withModel:bookModel.result.authornovels];
     
-//    [JZFMDBTools syncUpdateTable:@"AuthornovelsClass" model:nil where:<#(nonnull NSString *)#>]
-//    [JZFMDBTools asyncUpdateTable:@"AuthornovelsClass" class:NSClassFromString(@"AuthornovelsClass") where:[NSString stringWithFormat:@"where %@=%@",bg_sqlKey(@"cbid"),@"9735328300524203"]];
+//    [JZFMDBHelper syncUpdateTable:@"AuthornovelsClass" model:nil where:<#(nonnull NSString *)#>]
+//    [JZFMDBHelper asyncUpdateTable:@"AuthornovelsClass" class:NSClassFromString(@"AuthornovelsClass") where:[NSString stringWithFormat:@"where %@=%@",bg_sqlKey(@"cbid"),@"9735328300524203"]];
     
     
-//    [JZFMDBTools syncInsertModel:[self getBookModel] inTable:@"AuthornovelsClass"];
+//    [JZFMDBHelper syncInsertModel:[self getBookModel] inTable:@"AuthornovelsClass"];
 //    AuthornovelsClass *model = [self getBookModel];
 //
-//    [JZFMDBTools syncUpdateTable:@"AuthornovelsClass" model:[self getBookModel] where:[NSString stringWithFormat:@"where %@=%@",bg_sqlKey(@"cbid"),@"14020079200208004"]];
+//    [JZFMDBHelper syncUpdateTable:@"AuthornovelsClass" model:[self getBookModel] where:[NSString stringWithFormat:@"where %@=%@",bg_sqlKey(@"cbid"),@"14020079200208004"]];
     
-//    [JZFMDBTools asyncUpdateTable:<#(NSString * _Nullable)#> class:<#(nonnull Class)#> keyvalues:<#(nonnull NSString *), ...#>]
-//    [JZFMDBTools syncUpdateTable:@"AuthornovelsClass" model:[self getBookModel] keyvalues:@"cbid",@"14020079200208004"];
+//    [JZFMDBHelper asyncUpdateTable:<#(NSString * _Nullable)#> class:<#(nonnull Class)#> keyvalues:<#(nonnull NSString *), ...#>]
+//    [JZFMDBHelper syncUpdateTable:@"AuthornovelsClass" model:[self getBookModel] keyvalues:@"cbid",@"14020079200208004"];
     
-//    NSLog(@"---> %@",[JZFMDBTools]);
-//    NSLog(@"----> %@",[JZFMDBTools syncQueryTable:@"AuthornovelsClass" class:[AuthornovelsClass class] keyvalues:@"novelid",@"0001"]);
-//    [JZFMDBTools syncDeleteItemInTable:@"AuthornovelsClass" keyValues:@"novelid",@"0001"];
-//    NSLog(@"---> pageNo = 0 pageSize =3 ---> %@",[JZFMDBTools syncQueryTable:@"AuthornovelsClass"
+//    NSLog(@"---> %@",[JZFMDBHelper]);
+//    NSLog(@"----> %@",[JZFMDBHelper syncQueryTable:@"AuthornovelsClass" class:[AuthornovelsClass class] keyvalues:@"novelid",@"0001"]);
+//    [JZFMDBHelper syncDeleteItemInTable:@"AuthornovelsClass" keyValues:@"novelid",@"0001"];
+//    NSLog(@"---> pageNo = 0 pageSize =3 ---> %@",[JZFMDBHelper syncQueryTable:@"AuthornovelsClass"
 //                                                                       class:[AuthornovelsClass class]
 //                                                                       range:NSMakeRange(1, 3)
 //                                                                     orderBy:nil
@@ -63,9 +63,9 @@
 //                                                                           orderBy:nil
 //                                                                              desc:YES]);
     
-//   NSLog(@"---> %@", [JZFMDBTools syncQueryTable:@"AuthornovelsClass" class:[AuthornovelsClass class] byKey:@"cbid" value:@"14020079200208004"]);
-//    [JZFMDBTools syncDeleteItemInTable:@"AuthornovelsClass" keyValues:@"cbid",@"14020079200208004"];
-//    NSLog(@"-----> %@",[JZFMDBTools syncQueryTable:@"AuthornovelsClass" class:[AuthornovelsClass class] keyvalues:@"cbid",@"14020079200208004"]);
+//   NSLog(@"---> %@", [JZFMDBHelper syncQueryTable:@"AuthornovelsClass" class:[AuthornovelsClass class] byKey:@"cbid" value:@"14020079200208004"]);
+//    [JZFMDBHelper syncDeleteItemInTable:@"AuthornovelsClass" keyValues:@"cbid",@"14020079200208004"];
+//    NSLog(@"-----> %@",[JZFMDBHelper syncQueryTable:@"AuthornovelsClass" class:[AuthornovelsClass class] keyvalues:@"cbid",@"14020079200208004"]);
     NSLog(@"----> %@",LIBRARY_FOLDER(@""));
 }
 
