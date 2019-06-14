@@ -10,6 +10,14 @@
 #import "BGDB.h"
 #import "BGTool.h"
 
+#define SpendTimeLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#define StartTime CFAbsoluteTime start = CFAbsoluteTimeGetCurrent();
+#define GetIntervalTime  CFAbsoluteTime end = CFAbsoluteTimeGetCurrent(); \
+                        \
+                        if([BGDB shareManager].debug) { \
+                            SpendTimeLog(@"耗时%f 秒",end - start); \
+                        }
+
 @interface JZFMDBHelper()
 
 @end
@@ -22,164 +30,226 @@
 
 #pragma - mark 是否存在
 + (BOOL)existTableName:(NSString *)nameStr {
-    return [JZFMDBHelper bg_isExistForTableName:nameStr];
+    StartTime
+    BOOL succ = [JZFMDBHelper bg_isExistForTableName:nameStr];
+    GetIntervalTime
+    return succ;
 }
 
 #pragma - mark 存储
 +(BOOL)syncSaveModel:(id)model inTable:(NSString *)tableName {
+    StartTime
     NSObject *targetData = model;
     targetData.bg_tableName = tableName;
+    GetIntervalTime
     return [targetData bg_save];
 }
 
 + (void)asyncSaveModel:(id)model inTable:(NSString *)tableName withSuccBlock:(void(^)(BOOL isSuccess))succBlock{
-    NSObject *targetData = model;
-    targetData.bg_tableName = tableName;
-    return [targetData bg_saveAsync:succBlock];
+    StartTime
+    [[BGDB shareManager] addToThreadPool:^{
+        BOOL succ = [self syncSaveModel:model inTable:tableName];
+        succBlock(succ);
+        GetIntervalTime
+    }];
 }
 
 + (BOOL)syncSaveDic:(NSDictionary *)dic inTable:(NSString *)tableName {
+    StartTime
+    GetIntervalTime
     return [dic bg_saveDictionary];
 }
 
 + (void)asyncSaveDic:(NSDictionary *)dic inTable:(NSString *)tableName withSuccBlock:(void(^)(BOOL isSuccess))succBlock {
+    StartTime
     [[BGDB shareManager] addToThreadPool:^{
         BOOL succ = [self syncSaveDic:dic inTable:tableName];
         succBlock(succ);
+        GetIntervalTime
     }];
 }
 
 + (BOOL)syncSaveArray:(NSArray *)array {
-    return [self bg_saveOrUpdateArray:array];
+    StartTime
+    BOOL succ = [self bg_saveOrUpdateArray:array];
+    GetIntervalTime
+    return succ;
 }
 
 + (void)asyncSaveArray:(NSArray *)array withSuccBlock:(void(^)(BOOL isSuccess))succBlock {
+    StartTime
     [[BGDB shareManager] addToThreadPool:^{
         BOOL succ = [self syncSaveArray:array];
         succBlock(succ);
+        GetIntervalTime
     }];
 }
 
-
 + (BOOL)syncInsertModel:(id)model inTable:(NSString *)tableName {
+    StartTime
     NSObject *targetData = model;
     targetData.bg_tableName = tableName;
-    return [targetData bg_save];
+    BOOL succ = [targetData bg_save];
+    GetIntervalTime
+    return succ;
 }
 
 
 + (void)asyncInsertModel:(id)model inTable:(NSString *)tableName withSuccBlock:(void(^)(BOOL isSuccess))succBlock {
+    StartTime
     [[BGDB shareManager] addToThreadPool:^{
         BOOL succ = [self syncInsertModel:tableName inTable:tableName];
         succBlock(succ);
+        GetIntervalTime
     }];
 }
 
 + (BOOL)syncCoverModel:(id)model inTable:(NSString *)tableName {
+    StartTime
     [self deleteTable:tableName];
-    return [self syncSaveModel:model inTable:tableName];
+    BOOL succ = [self syncSaveModel:model inTable:tableName];
+    GetIntervalTime
+    return succ;
 }
 
 
 #pragma - mark 删除
 
 + (BOOL)syncDeleteItemInTable:(NSString *)tableName where:(NSString *)where{
-    return [NSObject bg_delete:tableName where:where];
+    StartTime
+    BOOL succ = [NSObject bg_delete:tableName where:where];
+    GetIntervalTime
+    return succ;
 }
 
 + (void)syncDeleteItemInTable:(NSString *)tableName where:(NSString *)where withSuccBlock:(void(^)(BOOL isSuccess))succBlock {
+    StartTime
     [[BGDB shareManager] addToThreadPool:^{
         BOOL succ = [self syncDeleteItemInTable:tableName where:where];
         succBlock(succ);
+        GetIntervalTime
     }];
 }
 
 + (BOOL)syncDeleteItemInTable:(NSString *)tableName byKey:(NSString *)keyString value:(NSString *)valueString {
+    StartTime
     NSString *where = [NSString stringWithFormat:@"where %@=%@",bg_sqlKey(keyString),valueString];
-    return [self syncDeleteItemInTable:tableName where:where];
+    BOOL succ = [self syncDeleteItemInTable:tableName where:where];
+    GetIntervalTime
+    return succ;
 }
 
 + (void)syncDeleteItemInTable:(NSString *)tableName byKey:(NSString *)keyString value:(NSString *)valueString withSuccBlock:(void(^)(BOOL isSuccess))succBlock {
+    StartTime
     [[BGDB shareManager] addToThreadPool:^{
         BOOL succ = [self syncDeleteItemInTable:tableName byKey:keyString value:valueString];
         succBlock(succ);
+        GetIntervalTime
     }];
 }
 
 + (BOOL)syncDeleteItemInTable:(NSString *)tableName keyValues:(NSString *)keyValues,... {
+    StartTime
     NSString *keyString = keyValues;
     va_list argsList;
     va_start(argsList, keyValues);
     NSString *valueString = va_arg(argsList, NSString *);
     va_end(argsList);
-    return [self syncDeleteItemInTable:tableName byKey:keyString value:valueString];
+    BOOL succ = [self syncDeleteItemInTable:tableName byKey:keyString value:valueString];
+    GetIntervalTime
+    return succ;
 }
 
 + (void)syncDeleteItemInTable:(NSString *)tableName withSuccBlock:(void(^)(BOOL isSuccess))succBlock keyValues:(NSString *)keyValues,... {
+    StartTime
     [[BGDB shareManager] addToThreadPool:^{
         BOOL succ = [self syncDeleteItemInTable:tableName keyValues:keyValues];
         succBlock(succ);
+        GetIntervalTime
     }];
 }
 
 + (BOOL)deleteTable:(NSString *)tableName {
-   return [NSObject bg_clear:tableName];
+    StartTime
+    BOOL succ = [NSObject bg_clear:tableName];
+    GetIntervalTime
+    return succ;
 }
 
 + (void)deleteTable:(NSString *)tableName withSuccBlock:(void(^)(BOOL isSuccess))succBlock {
+    StartTime
     [[BGDB shareManager] addToThreadPool:^{
         BOOL succ = [self deleteTable:tableName];
         succBlock(succ);
+        GetIntervalTime
     }];
 }
 #pragma -mark 改
 
 + (BOOL)syncUpdateTable:(NSString *)tableName model:(id)model byIndentify:(NSString *)indentifyStr value:(NSString *)value {
+    StartTime
     NSString *where = [NSString stringWithFormat:@"where %@=%@",bg_sqlKey(indentifyStr),value];
-    return [self syncUpdateTable:tableName model:model where:where];
+    BOOL succ = [self syncUpdateTable:tableName model:model where:where];
+    GetIntervalTime
+    return succ;
 }
 
 
 + (void)asyncUpdateTable:(NSString *)tableName model:(id)model byIndentify:(NSString *)indentifyStr value:(NSString *)value withSuccBlock:(void (^)(BOOL))succBlock {
+    StartTime
     [[BGDB shareManager] addToThreadPool:^{
         BOOL succ = [self syncUpdateTable:tableName model:model byIndentify:indentifyStr value:value];
         succBlock(succ);
+        GetIntervalTime
     }];
 }
 
 + (BOOL)syncUpdateTable:(NSString *)tableName model:(id)model where:(NSString *)where {
+    StartTime
     NSObject *obj = model;
     obj.bg_tableName = tableName;
-    return  [obj bg_updateWhere:where];
+    BOOL succ = [obj bg_updateWhere:where];
+    GetIntervalTime
+    return succ;
 }
 
 + (void)asyncUpdateTable:(NSString *)tableName model:(id)model where:(NSString *)where withSuccBlock:(void (^)(BOOL isSuccess))succBlock {
+    StartTime
     [[BGDB shareManager] addToThreadPool:^{
         BOOL succ = [self syncUpdateTable:tableName model:model where:where];
         succBlock(succ);
+        GetIntervalTime
     }];
 }
 
 +(BOOL)syncUpdateTable:(NSString* _Nullable)tablename model:(id)model keyvalues:(NSString *)keyValues, ... {
+    StartTime
     NSString *keyString = keyValues;
     va_list argsList;
     va_start(argsList, keyValues);
     NSString *valueString = va_arg(argsList, NSString *);
     va_end(argsList);
-    return [self syncUpdateTable:tablename model:model byIndentify:keyString value:valueString];
+    BOOL succ = [self syncUpdateTable:tablename model:model byIndentify:keyString value:valueString];
+    GetIntervalTime
+    return succ;
 }
 
 + (void)asyncUpdateTable:(NSString* _Nullable)tablename model:(id)model succBlock:(void(^)(BOOL isSuccess))succBlock keyvalues:(NSString *)keyValues, ... {
+    StartTime
     [[BGDB shareManager] addToThreadPool:^{
         BOOL succ = [self syncUpdateTable:tablename model:model keyvalues:keyValues];
         succBlock(succ);
+        GetIntervalTime
     }];
 }
 
 #pragma -mark 查询
 
 +(NSInteger)countInTable:(NSString *)tableName {
-    return [JZFMDBHelper bg_count:tableName where:nil];
+    StartTime
+    BOOL succ = [JZFMDBHelper bg_count:tableName where:nil];
+    GetIntervalTime
+    return succ;
 }
 
 
@@ -191,6 +261,7 @@
  @desc YES:降序，NO:升序.
  */
 +(NSArray* _Nullable)syncQueryTable:(NSString* _Nullable)tablename class:(Class)cls range:(NSRange)range orderBy:(NSString* _Nullable)orderBy desc:(BOOL)desc{
+    StartTime
     if(tablename == nil) {
         tablename = NSStringFromClass([cls class]);
     }
@@ -205,13 +276,16 @@
     }];
     //关闭数据库
     [[BGDB shareManager] closeDB];
+    GetIntervalTime
     return results;
 }
 
 + (void)asyncQueryTable:(NSString*)tablename class:(Class)cls range:(NSRange)range orderBy:(NSString*)orderBy desc:(BOOL)desc withSuccBlock:(void(^)(NSArray* modelArray))succBlock {
+    StartTime
     [[BGDB shareManager] addToThreadPool:^{
        NSArray *array = [self syncQueryTable:tablename class:cls range:range orderBy:orderBy desc:desc];
        succBlock(array);
+        GetIntervalTime
     }];
 }
 
@@ -223,6 +297,7 @@
  @desc YES:降序，NO:升序.
  */
 +(NSArray* _Nullable)syncQueryTable:(NSString* _Nullable)tablename class:(Class)cls limit:(NSInteger)limit orderBy:(NSString*)orderBy desc:(BOOL)desc{
+    StartTime
     if(tablename == nil) {
         tablename = NSStringFromClass([cls class]);
     }
@@ -236,13 +311,16 @@
     }];
     //关闭数据库
     [[BGDB shareManager] closeDB];
+    GetIntervalTime
     return results;
 }
 
 + (void)asyncQueryTable:(NSString*)tablename class:(Class)cls limit:(NSInteger)limit orderBy:(NSString* _Nullable)orderBy desc:(BOOL)desc withSuccBlock:(void(^)(NSArray* modelArray))succBlock {
+    StartTime
     [[BGDB shareManager] addToThreadPool:^{
         NSArray *array = [self syncQueryTable:tablename class:cls limit:limit orderBy:orderBy desc:desc];
         succBlock(array);
+        GetIntervalTime
     }];
 }
 
@@ -252,6 +330,7 @@
  温馨提示: 当数据量巨大时,请用范围接口进行分页查询,避免查询出来的数据量过大导致程序崩溃.
  */
 +(NSArray* _Nullable)syncQueryAllInTable:(NSString* _Nullable)tablename class:(Class)cls{
+    StartTime
     if (tablename == nil) {
         tablename = NSStringFromClass([self class]);
     }
@@ -261,17 +340,21 @@
     }];
     //关闭数据库
     [[BGDB shareManager] closeDB];
+    GetIntervalTime
     return results;
 }
 
 + (void)asyncQueryAllInTable:(NSString*)tablename class:(Class)cls withSuccBlock:(void(^)(NSArray* modelArray))succBlock {
+    StartTime
     [[BGDB shareManager] addToThreadPool:^{
         NSArray *array = [self syncQueryAllInTable:tablename class:cls];
         succBlock(array);
+        GetIntervalTime
     }];
 }
 
 + (NSArray* _Nullable)syncQueryTable:(NSString* _Nullable)tablename class:(Class)cls where:(NSString* _Nullable)where {
+    StartTime
     if(tablename == nil) {
         tablename = NSStringFromClass([self class]);
     }
@@ -281,50 +364,55 @@
     }];
     //关闭数据库
     [[BGDB shareManager] closeDB];
+    GetIntervalTime
     return results;
 }
 
 + (void)asyncQueryTable:(NSString* )tablename class:(Class)cls where:(NSString* )where withSuccBlock:(void(^)(NSArray* modelArray))succBlock {
     [[BGDB shareManager] addToThreadPool:^{
+        StartTime
         NSArray *array = [self syncQueryTable:tablename class:cls where:where];
         succBlock(array);
+        GetIntervalTime
     }];
 }
 
 + (NSArray* _Nullable)syncQueryTable:(NSString* _Nullable)tablename class:(Class)cls byKey:(NSString *)key value:(NSString *)value {
+    StartTime
     NSString *where = [NSString stringWithFormat:@"where %@=%@",bg_sqlKey(key),bg_sqlValue(value)];
-    return [self syncQueryTable:tablename class:cls where:where];
+    NSArray *array =  [self syncQueryTable:tablename class:cls where:where];
+    GetIntervalTime
+    return array;
 }
 
 + (void)asyncQueryTable:(NSString* )tablename class:(Class)cls byKey:(NSString *)key value:(NSString *)value withSuccBlock:(void(^)(NSArray* modelArray))succBlock {
+    StartTime
     [[BGDB shareManager] addToThreadPool:^{
         NSArray *array = [self syncQueryTable:tablename class:cls byKey:key value:value];
         succBlock(array);
+        GetIntervalTime
     }];
 }
 
 + (NSArray*)syncQueryTable:(NSString *)tablename class:(Class)cls keyvalues:(NSString *)keyValues,... {
+    StartTime
     NSString *keyString = keyValues;
     va_list argsList;
     va_start(argsList, keyValues);
     NSString *valueString = va_arg(argsList, NSString *);
     va_end(argsList);
-    return [self syncQueryTable:tablename class:cls byKey:keyString value:valueString];
+    NSArray *array = [self syncQueryTable:tablename class:cls byKey:keyString value:valueString];
+    GetIntervalTime
+    return array;
 }
 
 + (void)asyncQueryTable:(NSString *)tablename class:(Class)cls withSuccBlock:(void(^)(NSArray* modelArray))succBlock keyvalues:(NSString *)keyValues,... {
+    StartTime
     [[BGDB shareManager] addToThreadPool:^{
         NSArray *array = [self syncQueryTable:tablename class:cls keyvalues:keyValues];
         succBlock(array);
+        GetIntervalTime
     }];
-}
-
-+ (double)modelWithSpendTime:(void(^)(void))block {
-    CFAbsoluteTime start = CFAbsoluteTimeGetCurrent();
-    
-    block();
-    CFAbsoluteTime end = CFAbsoluteTimeGetCurrent();
-    return end-start;
 }
 
 @end
