@@ -42,13 +42,12 @@
     return [dic bg_saveDictionary];
 }
 
-/**
- 异步存入字典类型
- */
 + (void)asyncSaveDic:(NSDictionary *)dic inTable:(NSString *)tableName withSuccBlock:(void(^)(BOOL isSuccess))succBlock {
-    
+    [[BGDB shareManager] addToThreadPool:^{
+        BOOL succ = [self syncSaveDic:dic inTable:tableName];
+        succBlock(succ);
+    }];
 }
-
 
 + (BOOL)syncSaveArray:(NSArray *)array {
     return [self bg_saveOrUpdateArray:array];
@@ -88,9 +87,23 @@
     return [NSObject bg_delete:tableName where:where];
 }
 
++ (void)syncDeleteItemInTable:(NSString *)tableName where:(NSString *)where withSuccBlock:(void(^)(BOOL isSuccess))succBlock {
+    [[BGDB shareManager] addToThreadPool:^{
+        BOOL succ = [self syncDeleteItemInTable:tableName where:where];
+        succBlock(succ);
+    }];
+}
+
 + (BOOL)syncDeleteItemInTable:(NSString *)tableName byKey:(NSString *)keyString value:(NSString *)valueString {
     NSString *where = [NSString stringWithFormat:@"where %@=%@",bg_sqlKey(keyString),valueString];
     return [self syncDeleteItemInTable:tableName where:where];
+}
+
++ (void)syncDeleteItemInTable:(NSString *)tableName byKey:(NSString *)keyString value:(NSString *)valueString withSuccBlock:(void(^)(BOOL isSuccess))succBlock {
+    [[BGDB shareManager] addToThreadPool:^{
+        BOOL succ = [self syncDeleteItemInTable:tableName byKey:keyString value:valueString];
+        succBlock(succ);
+    }];
 }
 
 + (BOOL)syncDeleteItemInTable:(NSString *)tableName keyValues:(NSString *)keyValues,... {
@@ -101,18 +114,23 @@
     va_end(argsList);
     return [self syncDeleteItemInTable:tableName byKey:keyString value:valueString];
 }
-+ (void)asynDeleteItemFromTable:(NSString *)tableName byId:(NSString *)identifyStr {
-    
+
++ (void)syncDeleteItemInTable:(NSString *)tableName withSuccBlock:(void(^)(BOOL isSuccess))succBlock keyValues:(NSString *)keyValues,... {
+    [[BGDB shareManager] addToThreadPool:^{
+        BOOL succ = [self syncDeleteItemInTable:tableName keyValues:keyValues];
+        succBlock(succ);
+    }];
 }
 
-+ (void)deleteTable:(NSString *)tableName {
-    //    [BGDB deleteSqlite:tableName];
-    //    +(BOOL)bg_clear:(NSString* _Nullable)tablename;
-    [NSObject bg_clear:tableName];
++ (BOOL)deleteTable:(NSString *)tableName {
+   return [NSObject bg_clear:tableName];
 }
 
-+ (void)deleteAllTable {
-    
++ (void)deleteTable:(NSString *)tableName withSuccBlock:(void(^)(BOOL isSuccess))succBlock {
+    [[BGDB shareManager] addToThreadPool:^{
+        BOOL succ = [self deleteTable:tableName];
+        succBlock(succ);
+    }];
 }
 #pragma -mark 改
 
@@ -128,8 +146,6 @@
         succBlock(succ);
     }];
 }
-
-
 
 + (BOOL)syncUpdateTable:(NSString *)tableName model:(id)model where:(NSString *)where {
     NSObject *obj = model;
@@ -192,6 +208,13 @@
     return results;
 }
 
++ (void)asyncQueryTable:(NSString*)tablename class:(Class)cls range:(NSRange)range orderBy:(NSString*)orderBy desc:(BOOL)desc withSuccBlock:(void(^)(NSArray* modelArray))succBlock {
+    [[BGDB shareManager] addToThreadPool:^{
+       NSArray *array = [self syncQueryTable:tablename class:cls range:range orderBy:orderBy desc:desc];
+       succBlock(array);
+    }];
+}
+
 /**
  同步查询所有结果.
  @tablename 当此参数为nil时,查询以此类名为表名的数据，非nil时，查询以此参数为表名的数据.
@@ -199,7 +222,7 @@
  @limit 每次查询限制的条数,0则无限制.
  @desc YES:降序，NO:升序.
  */
-+(NSArray* _Nullable)syncQueryTable:(NSString* _Nullable)tablename class:(Class)cls limit:(NSInteger)limit orderBy:(NSString* _Nullable)orderBy desc:(BOOL)desc{
++(NSArray* _Nullable)syncQueryTable:(NSString* _Nullable)tablename class:(Class)cls limit:(NSInteger)limit orderBy:(NSString*)orderBy desc:(BOOL)desc{
     if(tablename == nil) {
         tablename = NSStringFromClass([cls class]);
     }
@@ -214,6 +237,13 @@
     //关闭数据库
     [[BGDB shareManager] closeDB];
     return results;
+}
+
++ (void)asyncQueryTable:(NSString*)tablename class:(Class)cls limit:(NSInteger)limit orderBy:(NSString* _Nullable)orderBy desc:(BOOL)desc withSuccBlock:(void(^)(NSArray* modelArray))succBlock {
+    [[BGDB shareManager] addToThreadPool:^{
+        NSArray *array = [self syncQueryTable:tablename class:cls limit:limit orderBy:orderBy desc:desc];
+        succBlock(array);
+    }];
 }
 
 /**
@@ -234,6 +264,13 @@
     return results;
 }
 
++ (void)asyncQueryAllInTable:(NSString*)tablename class:(Class)cls withSuccBlock:(void(^)(NSArray* modelArray))succBlock {
+    [[BGDB shareManager] addToThreadPool:^{
+        NSArray *array = [self syncQueryAllInTable:tablename class:cls];
+        succBlock(array);
+    }];
+}
+
 + (NSArray* _Nullable)syncQueryTable:(NSString* _Nullable)tablename class:(Class)cls where:(NSString* _Nullable)where {
     if(tablename == nil) {
         tablename = NSStringFromClass([self class]);
@@ -247,9 +284,23 @@
     return results;
 }
 
++ (void)asyncQueryTable:(NSString* )tablename class:(Class)cls where:(NSString* )where withSuccBlock:(void(^)(NSArray* modelArray))succBlock {
+    [[BGDB shareManager] addToThreadPool:^{
+        NSArray *array = [self syncQueryTable:tablename class:cls where:where];
+        succBlock(array);
+    }];
+}
+
 + (NSArray* _Nullable)syncQueryTable:(NSString* _Nullable)tablename class:(Class)cls byKey:(NSString *)key value:(NSString *)value {
     NSString *where = [NSString stringWithFormat:@"where %@=%@",bg_sqlKey(key),bg_sqlValue(value)];
     return [self syncQueryTable:tablename class:cls where:where];
+}
+
++ (void)asyncQueryTable:(NSString* )tablename class:(Class)cls byKey:(NSString *)key value:(NSString *)value withSuccBlock:(void(^)(NSArray* modelArray))succBlock {
+    [[BGDB shareManager] addToThreadPool:^{
+        NSArray *array = [self syncQueryTable:tablename class:cls byKey:key value:value];
+        succBlock(array);
+    }];
 }
 
 + (NSArray*)syncQueryTable:(NSString *)tablename class:(Class)cls keyvalues:(NSString *)keyValues,... {
@@ -261,12 +312,11 @@
     return [self syncQueryTable:tablename class:cls byKey:keyString value:valueString];
 }
 
-+ (id)syncQueryItemFromTable:(NSString *)tableName byId:(NSString *)identifyStr value:(NSString *)value{
-//    NSObject *obj = [NSObject new];
-    NSString* where = [NSString stringWithFormat:@"where %@=%@",bg_sqlKey(identifyStr),bg_sqlValue(value)];
-    NSArray* arr = [NSObject bg_find:tableName where:where];
-
-    return arr;
++ (void)asyncQueryTable:(NSString *)tablename class:(Class)cls withSuccBlock:(void(^)(NSArray* modelArray))succBlock keyvalues:(NSString *)keyValues,... {
+    [[BGDB shareManager] addToThreadPool:^{
+        NSArray *array = [self syncQueryTable:tablename class:cls keyvalues:keyValues];
+        succBlock(array);
+    }];
 }
 
 + (double)modelWithSpendTime:(void(^)(void))block {
